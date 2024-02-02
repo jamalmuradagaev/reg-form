@@ -16,26 +16,50 @@
         <section id="form-fields">
 
             <div class="form-field">
-                <label for="">Your name</label>
-                <input type="text" placeholder="Магомедов Магомед">
+                <label for="">Имя</label>
+                <input type="text" name="firstname" placeholder="Магомед">
+
+                <p class="error" name="length">Длина имени должна быть больше двух</p>
+                <p class="error" name="alphabet">Имя должно содержать тольок кириллицу</p>
+                
             </div>
 
             <div class="form-field">
-                <label for="">Email</label>
-                <input type="email" placeholder="Your email">
+                <label for="">Фамилия</label>
+                <input type="text" name="lastname" placeholder="Магомедов">
+
+                <p class="error" name="length">Длина фамилии должна быть больше трех</p>
+                <p class="error" name="alphabet">Фамилия должна содержать тольок кириллицу</p>
+                
             </div>
 
             <div class="form-field">
-                <label for="">Password</label>
-                <input type="password" placeholder="Create password">
+                <label for="">Почта</label>
+                <input type="email" name="email" placeholder="lalala@mail.ru">
+
+                <p class="error" name="emailerror">Введите почту правильно</p>
+                
             </div>
+
+            <div class="form-field">
+                <label for="">Пароль</label>
+                <input type="password" name="password" placeholder="********">
+                    
+                <p class="error" name="length">Длина пароля должна быть не меньше 8</p>
+                <p class="error" name="latters">Пароль должен содержать только латинские буквы</p>
+                <p class="error" name="digit">Пароль должен содержать хотя бы одну цифру</p>
+                <p class="error" name="uppercase">Пароль должен содержать хотя бы одну заглавную букву</p>
+                <p class="error" name="lowercase">Пароль должен содержать хотя бы одну прописную букву</p>
+                
 
             <button>Зарегестрироваться</button>
 
         </section>
     </form>
 
-
+    <div id="modal">
+        <h1>Регистрация прошла успешно!</h1>
+    </div>
 
 
     <script src="script.js"></script>

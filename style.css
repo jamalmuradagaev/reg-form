@@ -88,3 +88,28 @@ button {
 
     cursor: pointer;
 }
+/* .errors{
+    display: flex;
+    flex-direction: column;
+
+    display: none;
+
+    row-gap: 5px;
+    margin-top: 10px;
+} */
+
+.error{
+    display: none;
+    font-size: 14px;
+    color: red;
+    margin: 0;
+}
+
+#modal{
+    display: none;
+    background-color: white;
+    margin: 0 auto;
+
+    width: 500px;
+    border-radius: 8px;
+}

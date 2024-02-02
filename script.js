@@ -8,6 +8,52 @@ const password = regForm.password
 
 const modal = document.getElementById('modal')
 
+// function to validation
+
+const containsInlyRussioanLatters = (string) => {
+    return /^[а-я]+$/i.test(string)
+}
+
+const isEmailValid = (string) => {
+    return /^[a-z][a-z._0-9]+@[a-z]+\.[a-z]{2,3}$/i.test(string)
+}
+
+const containsADigit = (string) => {
+    return /[0-9]/.test(string)
+}
+
+const containsUppercaseLatter = (string) => {
+    return /[A-Z]/.test(string)
+}
+
+const containsLowercaseLatter = (string) => {
+    return /[a-z]/.test(string)
+}
+
+const containsLatinLatters = (string) => {
+    return /[a-z]/i.test(string)
+}
+
+// Checking the validity of the form
+
+const isFormValid = () => {
+    const errors = document.querySelectorAll('.error')
+
+    return [...errors].every(error => {
+        return window.getComputedStyle(error).display === 'none'
+    })
+}
+
+//  Showing error messages 
+
+const toggleErrorMessage = ({condition, errorMessage, errorType}) => {
+    if (condition){
+        errorMessage.namedItem(errorType).style.display = 'none'
+    } else {
+        errorMessage.namedItem(errorType).style.display = 'block'
+    }
+}
+
 regForm.addEventListener('submit', (e) => {
     e.preventDefault()
 
@@ -16,88 +62,84 @@ regForm.addEventListener('submit', (e) => {
     const firstNameErrorMessages = firstName.parentElement.children
     const firstNameValue = firstName.value
 
-    if (firstNameValue.length >= 3){
-        firstNameErrorMessages.namedItem('length').style.display = 'none'
-    } else {
-        firstNameErrorMessages.namedItem('length').style.display = 'block'
-    }
-    if (/^[а-я]+$/i.test(firstNameValue)){
-        firstNameErrorMessages.namedItem('alphabet').style.display = 'none'
-    } else {
-        firstNameErrorMessages.namedItem('alphabet').style.display = 'block'
-    }
+    toggleErrorMessage({
+        condition: firstNameValue.length >= 2,
+        errorMessage: firstNameErrorMessages,
+        errorType: 'length'
+    })
+
+    toggleErrorMessage({
+        condition: containsInlyRussioanLatters(firstNameValue),
+        errorMessage: firstNameErrorMessages,
+        errorType: 'alphabet'
+    })
 
     // lastName validation
 
-    const lasttNameErrorMessages = lastName.parentElement.children
+    const lastNameErrorMessages = lastName.parentElement.children
     const lastNameValue = lastName.value
 
-    if (lastNameValue.length >= 3){
-        lasttNameErrorMessages.namedItem('length').style.display = 'none'
-    } else {
-        lasttNameErrorMessages.namedItem('length').style.display = 'block'
-    }
-    if (/^[а-я]+$/i.test(lastNameValue)){
-        lasttNameErrorMessages.namedItem('alphabet').style.display = 'none'
-    } else {
-        lasttNameErrorMessages.namedItem('alphabet').style.display = 'block'
-    }
+    toggleErrorMessage({
+        condition: lastNameValue.length >= 2,
+        errorMessage: lastNameErrorMessages,
+        errorType: 'length'
+    })
 
+    toggleErrorMessage({
+        condition: containsInlyRussioanLatters(lastNameValue),
+        errorMessage: lastNameErrorMessages,
+        errorType: 'alphabet'
+    })
 
     // email validation
 
     const emailErrorMessages = email.parentElement.children
     const emailValue = email.value
 
-    if (/^[a-z][a-z._0-9]+@[a-z]+\.[a-z]{2,3}$/i.test(emailValue)){
-        emailErrorMessages.namedItem('emailerror').style.display = 'none'
-    } else {
-        emailErrorMessages.namedItem('emailerror').style.display = 'block'
-    }
-
+    toggleErrorMessage({
+        condition: isEmailValid(emailValue),
+        errorMessage: emailErrorMessages,
+        errorType: 'emailerror'
+    })
 
     // password validation
 
     const passwordErrorMessages = password.parentElement.children
     const passwordlValue = password.value
 
-    if (passwordlValue.length >= 8){
-        passwordErrorMessages.namedItem('length').style.display = 'none'
-    } else {
-        passwordErrorMessages.namedItem('length').style.display = 'block'
-    }
-
-    if (/[0-9]/.test(passwordlValue)){
-        passwordErrorMessages.namedItem('digit').style.display = 'none'
-    } else {
-        passwordErrorMessages.namedItem('digit').style.display = 'block'
-    }
-
-    if (/[a-z]/.test(passwordlValue)){
-        passwordErrorMessages.namedItem('lowercase').style.display = 'none'
-    } else {
-        passwordErrorMessages.namedItem('lowercase').style.display = 'block'
-    }
-
-    if (/[A-Z]/.test(passwordlValue)){
-        passwordErrorMessages.namedItem('uppercase').style.display = 'none'
-    } else {
-        passwordErrorMessages.namedItem('uppercase').style.display = 'block'
-    }
-
-    if (/[a-z]/i.test(passwordlValue)){
-        passwordErrorMessages.namedItem('latters').style.display = 'none'
-    } else {
-        passwordErrorMessages.namedItem('latters').style.display = 'block'
-    }
-
-    const errors = document.querySelectorAll('.error')
-
-    const isFormValid = [...errors].every(error => {
-        return window.getComputedStyle(error).display === 'none'
+    toggleErrorMessage({
+        condition: passwordlValue.length >= 8,
+        errorMessage: passwordErrorMessages,
+        errorType: 'length'
     })
 
-    if (isFormValid){
+    toggleErrorMessage({
+        condition: containsADigit(passwordlValue),
+        errorMessage: passwordErrorMessages,
+        errorType: 'digit'
+    })
+
+    toggleErrorMessage({
+        condition: containsLowercaseLatter(passwordlValue),
+        errorMessage: passwordErrorMessages,
+        errorType: 'lowercase'
+    })
+
+    toggleErrorMessage({
+        condition: containsUppercaseLatter(passwordlValue),
+        errorMessage: passwordErrorMessages,
+        errorType: 'uppercase'
+    })
+
+    toggleErrorMessage({
+        condition: containsLatinLatters(passwordlValue),
+        errorMessage: passwordErrorMessages,
+        errorType: 'latters'
+    })
+
+    // show message 'success registration'
+
+    if (isFormValid()){
         modal.style.display = 'block'
         regForm.style.display = 'none'
     }

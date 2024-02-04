@@ -68,6 +68,8 @@ input{
     padding: 10px 10px;
 
     outline-color: #3E708E;
+
+    transition: padding 0.5s;
 }
 
 button {

@@ -146,3 +146,29 @@ regForm.addEventListener('submit', (e) => {
 
 })
 
+// change when clicking on the input field
+
+const inputStyle = `
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    box-shadow: 0px 2px 2px 2px rgba(204, 204, 204, 0.1);
+    padding: 20px 20px;
+
+    outline-color: #3E708E;
+`
+
+const changeStyle = (element) => {
+    element.addEventListener('focus', () => {
+        element.style.cssText = inputStyle
+    })
+    element.addEventListener('blur', () => {
+        element.style.padding = 10 + 'px'
+    })
+}
+
+changeStyle(firstName)
+changeStyle(lastName)
+changeStyle(email)
+changeStyle(password)
+

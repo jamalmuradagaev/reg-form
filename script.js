@@ -144,6 +144,16 @@ regForm.addEventListener('submit', (e) => {
         regForm.style.display = 'none'
     }
 
+    // Output to the console
+
+    if (isFormValid()){
+        console.log({
+            name: firstName.value,
+            surname: lastName.value,
+            email: email.value,
+            password: password.value
+        })
+    }
 })
 
 // change when clicking on the input field
@@ -171,4 +181,6 @@ changeStyle(firstName)
 changeStyle(lastName)
 changeStyle(email)
 changeStyle(password)
+
+
 
